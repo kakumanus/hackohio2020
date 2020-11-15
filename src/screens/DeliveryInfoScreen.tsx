@@ -5,7 +5,7 @@ import * as d3 from 'd3-geo';
 import region from "../../data/cincinnati_censustracts";
 
 
-//SOURCE: Findlay Market, 1801 Race St, Cincinnati, OH
+//SOURCE: 100 West Elder Street, Over-The-Rhine, Cincinnati
 //DEST: 2600 Bellevue Avenue, Corryville, Cincinnati
 var ex1 = {s_id: "359", d_id: "199", Mean_Travel:6.48, Best_Hour:"Evening Early", Best_Hour_Time:"6.36"};
 
@@ -65,10 +65,11 @@ function get_zone_info(coords){
 function calculate_mean_times(zone1, zone2){
   //var query = 'SELECT Mean_Travel_Time AS mean FROM All_Hourly_Aggregate WHERE Source_ID = ? AND Dest_ID = ? ORDER BY Mean_Travel_Time DESC LIMIT 3;';
 
+  let ret_zone = null;
 
   ex_arr.forEach(zone => {
   if (zone.s_id == zone1 && zone.d_id == zone2){
-    return zone;
+    ret_zone = zone;
   } 
   });
 
@@ -87,7 +88,7 @@ function calculate_mean_times(zone1, zone2){
 
   */
 
-  return null;
+  return ret_zone;
 }
 
 
@@ -102,6 +103,7 @@ export const DeliveryInfoScreen = ({route, navigation}) => {
   var source_info= get_zone_info(source_coords);
   var dest_info = get_zone_info(dest_coords);
 
+  
   //console.log(source_info);
 
   //result object
@@ -109,6 +111,7 @@ export const DeliveryInfoScreen = ({route, navigation}) => {
   var modalChoice1 = "";
   var modalChoice2 = "";
   
+  console.log('hi');
   //console.log(result_zone_data.s_id);
   
   if(result_zone_data == null){

@@ -64,11 +64,11 @@ function get_zone_info(coords){
 
 function calculate_mean_times(zone1, zone2){
   //var query = 'SELECT Mean_Travel_Time AS mean FROM All_Hourly_Aggregate WHERE Source_ID = ? AND Dest_ID = ? ORDER BY Mean_Travel_Time DESC LIMIT 3;';
-  let ret_zone;
+
 
   ex_arr.forEach(zone => {
   if (zone.s_id == zone1 && zone.d_id == zone2){
-    ret_zone = zone;
+    return zone;
   } 
   });
 
@@ -87,7 +87,7 @@ function calculate_mean_times(zone1, zone2){
 
   */
 
-  return ret_zone;
+  return null;
 }
 
 
@@ -106,11 +106,18 @@ export const DeliveryInfoScreen = ({route, navigation}) => {
 
   //result object
   var result_zone_data = calculate_mean_times(source_info[0], dest_info[0]);
-
-  console.log(result_zone_data.Mean_Travel);
-
   var modalChoice1 = "";
   var modalChoice2 = "";
+  
+  //console.log(result_zone_data.s_id);
+  
+  if(result_zone_data == null){
+    result_zone_data = {s_id: "31", d_id: "199", Mean_Travel:6.48, Best_Hour:"Morning Peak", Best_Hour_Time:"6.36"};
+
+
+  }
+ 
+    
   if(result_zone_data.Mean_Travel < 7 && cargo < 200){
     modalChoice1 = "Cargo Bike 🚴";
     modalChoice2 = "Cargo Truck 🚚";

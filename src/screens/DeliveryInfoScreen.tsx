@@ -7,11 +7,11 @@ import region from "../../data/cincinnati_censustracts";
 
 //SOURCE: Findlay Market, 1801 Race St, Cincinnati, OH
 //DEST: 2600 Bellevue Avenue, Corryville, Cincinnati
-var ex1 = {s_id: "359", d_id: "199", Mean_Travel:"6.48", Best_Hour:"Evening Early", Best_Hour_Time:"6.36"};
+var ex1 = {s_id: "359", d_id: "199", Mean_Travel:6.48, Best_Hour:"Evening Early", Best_Hour_Time:"6.36"};
 
 //SOURCE:Walmart Supercenter, 2322 Ferguson Rd, Cincinnati, OH
 //DEST: 3300 Morrison Avenue, Clifton, Cincinnati
-var ex2 = {s_id: "150", d_id: "36", Mean_Travel:"14.45", Best_Hour:"Midday", Best_Hour_Time:"13.41"};
+var ex2 = {s_id: "150", d_id: "36", Mean_Travel:14.45, Best_Hour:"Midday", Best_Hour_Time:"13.41"};
 
 var ex_arr = [ex1, ex2];
 /*
@@ -65,36 +65,36 @@ function get_zone_info(coords){
 function calculate_mean_times(zone1, zone2){
   //var query = 'SELECT Mean_Travel_Time AS mean FROM All_Hourly_Aggregate WHERE Source_ID = ? AND Dest_ID = ? ORDER BY Mean_Travel_Time DESC LIMIT 3;';
   let ret_zone;
-  
+
   ex_arr.forEach(zone => {
-    if (zone.s_id == zone1 && zone.d_id == zone2){
-      ret_zone = zone;
-    } 
+  if (zone.s_id == zone1 && zone.d_id == zone2){
+    ret_zone = zone;
+  } 
   });
-  
+
 
 
   /*
   db.transaction(
-    tx => {
-      tx.executeSql(query, [zone1, zone2], (trans, result) => {
-        console.log(trans, result);
-        console.log('hi');
-      });
-    }
+  tx => {
+    tx.executeSql(query, [zone1, zone2], (trans, result) => {
+      console.log(trans, result);
+      console.log('hi');
+    });
+  }
   );
-    return arr;
+  return arr;
 
   */
 
   return ret_zone;
-  }
+}
 
 
 
 export const DeliveryInfoScreen = ({route, navigation}) => {
 
-  const { source, dest } = route.params;
+  const { source, dest, cargo } = route.params;
 
   var source_coords = [source.lng, source.lat];
   var dest_coords = [dest.lng, dest.lat];
@@ -108,6 +108,16 @@ export const DeliveryInfoScreen = ({route, navigation}) => {
   var result_zone_data = calculate_mean_times(source_info[0], dest_info[0]);
 
   console.log(result_zone_data.Mean_Travel);
+
+  var modalChoice1 = "";
+  var modalChoice2 = "";
+  if(result_zone_data.Mean_Travel < 7 && cargo < 200){
+    modalChoice1 = "Cargo Bike 🚴";
+    modalChoice2 = "Cargo Truck 🚚";
+  } else {
+    modalChoice1 = "Cargo Truck 🚚";
+    modalChoice2 = "Cargo Truck 🚚";
+  }
   
   return (
       <ImageBackground source={{uri: 'https://ubernewsroomapi.10upcdn.com/wp-content/uploads/2019/05/Screenshot-2019-05-08-22.21.20.png'}}
@@ -124,8 +134,8 @@ export const DeliveryInfoScreen = ({route, navigation}) => {
               <View style={[styles.cardHeader, {backgroundColor: "#88FFD1"}]}>
                 <Text style={styles.cardHeadText}>Option #1 (Recommended)</Text>
               </View>
-              <Text style={styles.cardText}> Modal Choice: Cargo Bike 🚴</Text>
-              <Text style={styles.cardText}> Trip Timing: Mid-Day</Text>
+              <Text style={styles.cardText}> Modal Choice: {modalChoice1}</Text>
+              <Text style={styles.cardText}> Best Time: {result_zone_data.Best_Hour}</Text>
               <View style={styles.cardLine}/>
               <Text style={[styles.cardText, {fontSize: 18, marginTop:15, marginLeft: 20, fontWeight: "normal"}]}> 
               This is the ideal mode based on your trip plan and cargo weight. You will reduce your emissions and help mitigate congestion
@@ -157,8 +167,8 @@ export const DeliveryInfoScreen = ({route, navigation}) => {
               <View style={[styles.cardHeader, {backgroundColor: "#FFD567"}]}>
                 <Text style={styles.cardHeadText}>Option #2 (Okay)</Text>
               </View>
-              <Text style={styles.cardText}> Modal Choice: Small Truck 🚚</Text>
-              <Text style={styles.cardText}> Trip Timing: Mid-Day</Text>
+              <Text style={styles.cardText}>Modal Choice: {modalChoice2}</Text>
+              <Text style={styles.cardText}>Best Time: {result_zone_data.Best_Hour}</Text>
               <View style={styles.cardLine}/>
               <Text style={[styles.cardText, {fontSize: 18, marginTop:15, marginLeft: 20, fontWeight: "normal"}]}> 
               If Option #1 is not feasible, this is the next best option. Decreased traffic during this time will make offloading packages a less of a hassle</Text>

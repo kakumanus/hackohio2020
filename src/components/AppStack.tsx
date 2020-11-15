@@ -7,7 +7,10 @@ const Stack = createStackNavigator();
 
 function AppStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+    screenOptions={{
+      headerShown: false
+    }}>
       <Stack.Screen name="Delivery" component={DeliveryScreen} />
       <Stack.Screen name="Info" component={DeliveryInfoScreen} />
     </Stack.Navigator>

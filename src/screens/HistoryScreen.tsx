@@ -8,7 +8,32 @@ export const HistoryScreen = () => {
         style={styles.backImg}>
         <ScrollView style={styles.container}> 
 
-          <Text style={styles.headerText}>Delivery History:</Text>
+        <Text style={styles.headerText}>Delivery History:</Text>
+          <View style={styles.cards}>
+            <View style={styles.cardView}>
+              <View style={[styles.cardHeader, {backgroundColor: "#063F96"}]}>
+                <Text style={styles.cardHeadText}>11/15/20</Text>
+              </View>
+            </View>
+
+            <View style={styles.cardView}>
+              <View style={[styles.cardHeader, {backgroundColor: "#063F96"}]}>
+                <Text style={styles.cardHeadText}>11/12/20</Text>
+              </View>
+            </View>
+
+            <View style={styles.cardView}>
+              <View style={[styles.cardHeader, {backgroundColor: "#063F96"}]}>
+                <Text style={styles.cardHeadText}>11/11/20</Text>
+              </View>
+            </View>
+
+            <View style={styles.cardView}>
+              <View style={[styles.cardHeader, {backgroundColor: "#063F96"}]}>
+                <Text style={styles.cardHeadText}>11/04/20</Text>
+              </View>
+            </View>
+          </View>
 
         </ScrollView>
       </ImageBackground>
@@ -32,6 +57,33 @@ const styles = StyleSheet.create({
     paddingTop: 45,
     paddingBottom: 45,
     fontSize: 60,
+    fontFamily: "Roboto",
+    fontWeight: "bold",
+    color: "white",
+  },
+
+  cards:{
+    alignItems: 'center',
+  },
+  
+  cardView:{
+    width:"90%",
+    height:300,
+    backgroundColor: "#EDEDED",
+    borderRadius: 15,
+    marginBottom: 20,
+    elevation: 10,
+  },
+
+  cardHeader:{
+    width:"100%",
+    height:"20%",
+    marginBottom: 20,
+  },
+
+  cardHeadText:{
+    margin: 20,
+    fontSize: 24,
     fontFamily: "Roboto",
     fontWeight: "bold",
     color: "white",

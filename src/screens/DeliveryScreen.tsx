@@ -2,13 +2,14 @@ import React from "react";
 import {LinearGradient} from 'expo-linear-gradient'
 import { StyleSheet, Text, View, ImageBackground, TextInput, TouchableOpacity } from "react-native";
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import Geolocation  from '@react-native-community/geolocation';
 import { ScrollView } from "react-native-gesture-handler";
-
+import MotionSlider from 'react-native-motion-slider';
+import { Value } from "react-native-reanimated";
 
 export const DeliveryScreen = ({navigation}) => {
   var sourceAdd = 'source';
   var destAdd = 'dest';
+  var cargoVal = 500;
   return (
     <ImageBackground source={{uri: 'https://brandondonnelly.files.wordpress.com/2019/05/screen-shot-2019-05-16-at-9.26.30-pm.png'}}
       style={styles.backImg}>
@@ -69,16 +70,38 @@ export const DeliveryScreen = ({navigation}) => {
           }}
         />
 
+        <Text style={styles.subText}>Cargo Weight (lbs):</Text>
+        <View style={styles.sliderCont}>
+          <MotionSlider
+            width={400}
+            fontSize={18}
+            valueBackgroundColor = {'#005E5D'}
+            valueColor = {'white'}
+            backgroundColor={['white']}
+            maxColor = {'#005E5D'}
+            minColor = {'#005E5D'}
+            min={0} 
+            max={500}
+            value={250} 
+            decimalPlaces={0}
+            onValueChanged={(value) => cargoVal=value}
+            onPressIn={() => console.log('Pressed in')}
+            onPressOut={() => console.log('Pressed out')}
+            onDrag={() => console.log('Dragging')}
+          />
+        </View>
+
         <View style={styles.button}>
           <TouchableOpacity
               onPress={() => {
                 navigation.navigate('Info', {
                   source: sourceAdd,
                   dest: destAdd,
+                  cargo: cargoVal,
                 });
               }}
               style={[styles.signIn, {
-                  marginTop:15
+                  marginTop:0
               }]}
           >
               <LinearGradient
@@ -135,6 +158,10 @@ const styles = StyleSheet.create({
   button: {
       alignItems: 'center',
       marginTop: 50
+  },
+
+  sliderCont: {
+    alignItems: 'center',
   },
   signIn: {
     width: '75%',

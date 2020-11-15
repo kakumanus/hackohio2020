@@ -5,17 +5,20 @@ import {
 } from "@react-navigation/bottom-tabs";
 import { TabBar } from "./TabBar";
 import { DeliveryScreen } from "../../screens/DeliveryScreen";
+import AppStack from "../AppStack";
 import { HistoryScreen } from "../../screens/HistoryScreen";
 import { ProfileScreen } from "../../screens/ProfileScreen";
 import { useSafeArea } from "react-native-safe-area-context";
-import { View } from "react-native";export const BottomMenu = () => {
+import { View } from "react-native";
+
+export const BottomMenu = () => {
   const Tab = createBottomTabNavigator();
   return (
     <View style={{ flex: 1, position: "relative"}}>
       <Tab.Navigator
         tabBar={(props: BottomTabBarProps) => <TabBar {...props} />}
       >
-        <Tab.Screen name="car" component={DeliveryScreen} />
+        <Tab.Screen name="car" component={AppStack} />
         <Tab.Screen name="clockcircleo" component={HistoryScreen} />
         <Tab.Screen name="dotchart" component={ProfileScreen} />
       </Tab.Navigator>

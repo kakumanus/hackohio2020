@@ -2,14 +2,15 @@ import React from "react";
 import {LinearGradient} from 'expo-linear-gradient'
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, ImageBackground } from "react-native";
 
-export const HistoryScreen = () => {
+export const DeliveryInfoScreen = ({route, navigation}) => {
+
+  const { source, dest } = route.params;
   return (
       <ImageBackground source={{uri: 'https://ubernewsroomapi.10upcdn.com/wp-content/uploads/2019/05/Screenshot-2019-05-08-22.21.20.png'}}
         style={styles.backImg}>
         <ScrollView style={styles.container}> 
-
-          <Text style={styles.headerText}>Delivery History:</Text>
-
+          <Text>{JSON.stringify(source)}</Text>
+          <Text>{JSON.stringify(dest)}</Text>
         </ScrollView>
       </ImageBackground>
   );
@@ -25,16 +26,6 @@ const styles = StyleSheet.create({
   backImg:{
     width:"100%",
     height:"100%",
-  },
-
-  headerText:{
-    paddingLeft: 25,
-    paddingTop: 45,
-    paddingBottom: 45,
-    fontSize: 60,
-    fontFamily: "Roboto",
-    fontWeight: "bold",
-    color: "white",
   },
 
   button: {

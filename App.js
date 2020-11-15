@@ -6,11 +6,18 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
   return (
+<<<<<<< HEAD
     <NavigationContainer>
       <SafeAreaProvider>
           <BottomMenu/>
       </SafeAreaProvider>
     </NavigationContainer>
+=======
+    <View style={styles.container}>
+      <Text>HELLO MATTHEW</Text>
+      <StatusBar style="auto" />
+    </View>
+>>>>>>> a7ffa8c3b883717f82c39c3395e344bcc7b4c0e1
   );
 }
 

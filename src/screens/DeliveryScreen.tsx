@@ -28,7 +28,7 @@ export const DeliveryScreen = ({navigation}) => {
             sourceAdd = details.geometry.location;
           }}
           query={{
-            key: 'AIzaSyBg00ZXrGviFsX_8bb7qKqBYj16J39mdQU',
+            key: 'API_KEY_HERE',
             language: 'en',
           }}
           styles={{
@@ -54,7 +54,7 @@ export const DeliveryScreen = ({navigation}) => {
             destAdd = details.geometry.location;
           }}
           query={{
-            key: 'AIzaSyBg00ZXrGviFsX_8bb7qKqBYj16J39mdQU',
+            key: 'API_KEY_HERE',
             language: 'en',
           }}
           styles={{
